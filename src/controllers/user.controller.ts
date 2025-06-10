@@ -15,3 +15,13 @@ export const registerUser = async (req: Request, res: Response) => {
     res.status(400).json({ message: err.message || 'Failed to register user' });
   }
 };
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const token = await userService.loginUser(email, password);
+    res.status(200).json({ message: 'Login successful', token });
+  } catch (error: any) {
+    res.status(401).json({ message: error.message || 'Login failed' });
+  }
+};
